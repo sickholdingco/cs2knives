@@ -6,7 +6,6 @@ const config = {
   tabWidth: 2,
   trailingComma: "es5",
   arrowParens: "always",
-  printWidth: 80,
   jsxSingleQuote: false,
   plugins: [require.resolve("prettier-plugin-tailwindcss")],
 };
