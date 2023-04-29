@@ -32,7 +32,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run build, lint, type-check
-        run: pnpm build lint type-check
+      - name: Run build
+        run: pnpm build
+        env:
+          SKIP_ENV_VALIDATION: true
+
+      - name: Run lint
+        run: pnpm lint
+        env:
+          SKIP_ENV_VALIDATION: true
+
+      - name: Run type-check
+        run: pnpm type-check
         env:
           SKIP_ENV_VALIDATION: true
