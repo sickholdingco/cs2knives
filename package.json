@@ -6,6 +6,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
+    "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
     "build": "next build",
     "dev": "next dev",
@@ -34,8 +35,6 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.1",
-    "@commitlint/config-conventional": "^17.6.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.9",
     "@types/eslint": "^8.21.3",
