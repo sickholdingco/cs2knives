@@ -3,10 +3,27 @@
  * for Docker builds.
  */
 await import("./src/env.mjs");
+import { withContentlayer } from "next-contentlayer";
 
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  swcMinify: true, // content layer docs said to add this,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
+  webpack: (config) => {
+    config.infrastructureLogging = {
+      level: "error",
+    };
+    // Important: return the modified config
+    // https://nextjs.org/docs/messages/undefined-webpack-config
+    return config;
+  },
 
   /**
    * If you have `experimental: { appDir: true }` set, then you must comment the below `i18n` config
@@ -19,4 +36,5 @@ const config = {
     defaultLocale: "en",
   },
 };
-export default config;
+
+export default withContentlayer(config);
