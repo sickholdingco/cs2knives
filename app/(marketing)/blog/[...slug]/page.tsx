@@ -39,6 +39,7 @@ export async function generateMetadata({
     return {}
   }
 
+  //TODO handle missing env for CI
   const url = env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
 
   const ogUrl = new URL(`${url}/api/og`)
