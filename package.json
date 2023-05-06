@@ -7,6 +7,7 @@
     "url": "https://twitter.com/shadcn"
   },
   "scripts": {
+    "prepare": "husky install",
     "dev": "concurrently \"contentlayer dev\" \"next dev\"",
     "build": "contentlayer build && next build",
     "turbo": "next dev --turbo",
