@@ -4,12 +4,10 @@ import "./env.mjs"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  swcMinify: true,
   reactStrictMode: true,
   images: {
     domains: ["avatars.githubusercontent.com"],
-  },
-  experimental: {
-    serverComponentsExternalPackages: ["@prisma/client"],
   },
   webpack: (config) => {
     config.infrastructureLogging = {
