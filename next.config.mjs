@@ -1,6 +1,6 @@
 import { withContentlayer } from "next-contentlayer"
 
-import "./env.mjs"
+!process.env.SKIP_ENV_VALIDATION && (await import("./env.mjs"))
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -18,10 +18,10 @@ const nextConfig = {
     return config
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: !!process.env.CI,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: !!process.env.CI,
   },
 }
 
