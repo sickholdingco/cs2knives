@@ -9,8 +9,15 @@ const nextConfig = {
     domains: ["avatars.githubusercontent.com"],
   },
   experimental: {
-    appDir: true,
     serverComponentsExternalPackages: ["@prisma/client"],
+  },
+  webpack: (config) => {
+    config.infrastructureLogging = {
+      level: "error",
+    }
+    // Important: return the modified config
+    // https://nextjs.org/docs/messages/undefined-webpack-config
+    return config
   },
 }
 
