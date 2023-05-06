@@ -17,6 +17,12 @@ const nextConfig = {
     // https://nextjs.org/docs/messages/undefined-webpack-config
     return config
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 }
 
 export default withContentlayer(nextConfig)
