@@ -24,8 +24,7 @@ export async function GET(req: Request) {
         ? `${values.heading.substring(0, 140)}...`
         : values.heading
 
-    const { mode } = values
-    const paint = mode === "dark" ? "#fff" : "#000"
+    const paint = "#fff"
 
     const fontSize = heading.length > 100 ? "70px" : "100px"
 
@@ -35,10 +34,7 @@ export async function GET(req: Request) {
           tw="flex relative flex-col p-12 w-full h-full items-start"
           style={{
             color: paint,
-            background:
-              mode === "dark"
-                ? "linear-gradient(90deg, #000 0%, #111 100%)"
-                : "white",
+            background: "linear-gradient(90deg, #000 0%, #111 100%)",
           }}
         >
           <svg width="212" height="50" viewBox="0 0 212 50" fill="none">
