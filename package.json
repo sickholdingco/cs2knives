@@ -1,11 +1,7 @@
 {
-  "name": "taxonomy",
-  "version": "0.2.0",
+  "name": "cs2-knives",
+  "version": "0.0.1",
   "private": true,
-  "author": {
-    "name": "shadcn",
-    "url": "https://twitter.com/shadcn"
-  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",

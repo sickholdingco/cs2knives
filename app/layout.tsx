@@ -38,11 +38,11 @@ export const metadata = {
   ],
   authors: [
     {
-      name: "shadcn",
-      url: "https://shadcn.com",
+      name: "shco",
+      url: "https://shco.io",
     },
   ],
-  creator: "shadcn",
+  creator: "shco",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -56,7 +56,7 @@ export const metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.jpg`],
-    creator: "@shadcn",
+    creator: "@shco",
   },
   icons: {
     icon: "/favicon.ico",
