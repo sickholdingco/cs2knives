@@ -24,8 +24,7 @@ export async function GET(req: Request) {
         ? `${values.heading.substring(0, 140)}...`
         : values.heading
 
-    const { mode } = values
-    const paint = mode === "dark" ? "#fff" : "#000"
+    const paint = "#fff"
 
     const fontSize = heading.length > 100 ? "70px" : "100px"
 
