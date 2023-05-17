@@ -50,7 +50,7 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
-    authors: post.authors.map((author) => ({
+    authors: post.authors?.map((author) => ({
       name: author,
     })),
     openGraph: {
@@ -91,7 +91,7 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound()
   }
 
-  const authors = post.authors.map((author) =>
+  const authors = post.authors?.map((author) =>
     allAuthors.find(({ slug }) => slug === `/authors/${author}`)
   )
 
@@ -148,15 +148,26 @@ export default async function PostPage({ params }: PostPageProps) {
         ) : null}
       </div>
       {post.image && (
-        <Image
-          src={post.image}
-          alt={post.title}
-          width={720}
-          height={405}
-          className="my-8 rounded-md border bg-muted transition-colors"
-          priority
-        />
+        <div className="my-8">
+          <Image
+            src={post.image}
+            alt={post.title}
+            width={720}
+            height={405}
+            className="rounded-md border bg-muted transition-colors"
+            priority
+          />
+          {post.imageSrc && (
+            <div className="mt-2 text-xs text-muted-foreground">
+              Photo source:{" "}
+              <Link href={post.imageSrc} className="underline" target="_blank">
+                {post.imageSrc}
+              </Link>
+            </div>
+          )}
+        </div>
       )}
+
       <Mdx code={post.body.code} />
       <hr className="mt-12" />
       <div className="flex justify-center py-6 lg:py-10">
