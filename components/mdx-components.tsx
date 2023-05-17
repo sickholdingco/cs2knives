@@ -5,6 +5,7 @@ import { useMDXComponent } from "next-contentlayer/hooks"
 
 import { cn } from "@/lib/utils"
 import { Callout } from "@/components/callout"
+import { Conclusion } from "@/components/conclusion"
 import { MdxCard } from "@/components/mdx-card"
 
 const components = {
@@ -65,6 +66,7 @@ const components = {
   a: ({ className, ...props }) => (
     <a
       className={cn("font-medium underline underline-offset-4", className)}
+      target="_blank"
       {...props}
     />
   ),
@@ -151,6 +153,7 @@ const components = {
   Image,
   Callout,
   Card: MdxCard,
+  Conclusion,
 }
 
 interface MdxProps {
