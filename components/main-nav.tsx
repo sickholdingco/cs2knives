@@ -23,7 +23,7 @@ export function MainNav({ items, children }: MainNavProps) {
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
 
   return (
-    <div className="flex w-full justify-between">
+    <div className="flex w-full items-center justify-between">
       <div className="flex gap-6 md:gap-10">
         <Link href="/" className="flex items-center space-x-2">
           <Image src={karambit} alt="karambit" width={32} height={32} />
