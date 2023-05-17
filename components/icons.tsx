@@ -13,6 +13,7 @@ import {
   Laptop,
   Loader2,
   LucideProps,
+  Menu,
   Moon,
   MoreVertical,
   Pizza,
@@ -69,4 +70,5 @@ export const Icons = {
   ),
   twitter: Twitter,
   check: Check,
+  menu: Menu,
 }
