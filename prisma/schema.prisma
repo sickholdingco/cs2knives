@@ -20,17 +20,19 @@ model Weapon {
 }
 
 model Skin {
-  name        String       @id
-  weaponName  String       @map("weapon_name") @db.VarChar(255)
-  weapon      Weapon       @relation(fields: [weaponName], references: [name])
-  baseImage   String       @map("base_image") @db.VarChar(255)
-  rarity      String       @db.VarChar(255)
-  collections Collection[]
-  cases       Case[]
-  variants    Variant[]
-  releaseDate DateTime     @map("release_date") @db.DateTime(3)
+  name           String     @id
+  weaponName     String     @map("weapon_name") @db.VarChar(255)
+  weapon         Weapon     @relation(fields: [weaponName], references: [name])
+  baseImage      String     @map("base_image") @db.VarChar(255)
+  rarity         String     @db.VarChar(255)
+  collection     String     @db.VarChar(255)
+  collectionName Collection @relation(fields: [collection], references: [name])
+  cases          Case[]
+  variants       Variant[]
+  releaseDate    DateTime   @map("release_date") @db.DateTime(3)
 
   @@index([weaponName])
+  @@index([collection])
 }
 
 model Variant {
