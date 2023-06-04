@@ -18,11 +18,18 @@ module.exports = {
     },
     extend: {
       colors: {
+        covert: "hsl(var(--covert))",
+        classified: "hsl(var(--classified))",
+        restricted: "hsl(var(--restricted))",
+        milSpec: "hsl(var(--mil-spec))",
+        industrial: "hsl(var(--industrial))",
+        consumerGrade: "hsl(var(--consumer-grade))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        accent: "hsl(var(--accent))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -58,8 +65,10 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        inter: ["var(--font-inter)", ...fontFamily.sans],
         heading: ["var(--font-heading)", ...fontFamily.sans],
+        mono: ["var(--font-mono)", ...fontFamily.mono],
+        flex: ["var(--font-flex)", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {
