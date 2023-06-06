@@ -19,3 +19,11 @@ export function formatDate(input: string | number): string {
 export function absoluteUrl(path: string) {
   return `${env.NEXT_PUBLIC_APP_URL}${path}`
 }
+
+export function getWeaponListingsUrl(weapon: string, start = 0, count = 100) {
+  const url = encodeURI(
+    `http://steamcommunity.com/market/search/render/?query=search?category_730_Weapon[0]=tag_weapon_${weapon}&appid=730&start=${start}&count=${count}&norender=1`
+  )
+
+  return url
+}
