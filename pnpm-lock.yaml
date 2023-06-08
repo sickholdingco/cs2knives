@@ -4,6 +4,9 @@ dependencies:
   "@hookform/resolvers":
     specifier: ^3.1.0
     version: 3.1.0(react-hook-form@7.43.9)
+  "@planetscale/database":
+    specifier: ^1.7.0
+    version: 1.7.0
   "@prisma/client":
     specifier: 4.14.0
     version: 4.14.0(prisma@4.14.0)
@@ -1720,6 +1723,14 @@ packages:
       picocolors: 1.0.0
       tslib: 2.5.0
     dev: true
+
+  /@planetscale/database@1.7.0:
+    resolution:
+      {
+        integrity: sha512-lWR6biXChUyQnxsT4RT1CIeR3ZJvwTQXiQ+158MnY3VjLwjHEGakDzdH9kwUGPk6CHvu6UeqRXp1DgUOVHJFTw==,
+      }
+    engines: { node: ">=16" }
+    dev: false
 
   /@prisma/client@4.14.0(prisma@4.14.0):
     resolution:
