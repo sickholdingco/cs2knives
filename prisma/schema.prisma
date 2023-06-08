@@ -19,45 +19,50 @@ model Weapon {
   baseImage   String @map("base_image") @db.VarChar(255)
 }
 
+model Container {
+  name            String      @id
+  skins           Skin[]      @relation("ContainerSkin")
+  releaseDate     String      @map("release_date") @db.VarChar(255)
+  image           String      @db.VarChar(255)
+  containerSeries String      @map("container_series") @db.VarChar(255)
+  collectionName  String?     @map("collection_name") @db.VarChar(255)
+  collection      Collection? @relation(fields: [collectionName], references: [name])
+
+  @@index([collectionName])
+}
+
 model Skin {
-  name        String       @id
-  weaponName  String       @map("weapon_name") @db.VarChar(255)
-  weapon      Weapon       @relation(fields: [weaponName], references: [name])
-  baseImage   String       @map("base_image") @db.VarChar(255)
-  rarity      String       @db.VarChar(255)
-  collections Collection[]
-  cases       Case[]
-  variants    Variant[]
-  releaseDate DateTime     @map("release_date") @db.DateTime(3)
+  name              String      @id
+  weaponName        String      @map("weapon_name") @db.VarChar(255)
+  weapon            Weapon      @relation(fields: [weaponName], references: [name])
+  baseImage         String      @map("base_image") @db.VarChar(355)
+  rarity            String      @db.VarChar(255)
+  stattrakAvailable Boolean     @map("stattrak_available")
+  souvenirAvailable Boolean     @map("souvenir_available")
+  collectionName    String      @map("collection_name") @db.VarChar(255)
+  collection        Collection  @relation(fields: [collectionName], references: [name])
+  containers        Container[] @relation("ContainerSkin")
+  releaseDate       String      @map("release_date") @db.VarChar(255)
 
   @@index([weaponName])
+  @@index([collectionName])
 }
 
 model Variant {
   id       String @id @default(cuid())
   name     String @db.VarChar(255)
-  skin     Skin   @relation(fields: [skinName], references: [name])
+  // skin     Skin   @relation(fields: [skinName], references: [name])
   skinName String @map("skin_name") @db.VarChar(255)
   image    String @db.VarChar(255)
 
-  @@index([skinName])
+  // @@index([skinName])
 }
 
 model Collection {
-  name     String   @id
-  skins    Skin[]
-  release  DateTime @db.DateTime(3)
-  image    String   @db.VarChar(255)
-  case     Case     @relation(fields: [caseName], references: [name])
-  caseName String   @map("case_name") @db.VarChar(255)
-
-  @@index([caseName])
-}
-
-model Case {
-  name        String       @id
+  name        String      @id
   skins       Skin[]
-  releaseDate DateTime     @map("release_date") @db.DateTime(3)
-  image       String       @db.VarChar(255)
-  collections Collection[]
+  releaseDate String      @map("release_date") @db.VarChar(255)
+  image       String      @db.VarChar(255)
+  containers  Container[]
 }
+
