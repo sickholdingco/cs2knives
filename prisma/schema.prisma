@@ -1,5 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
 
 datasource db {
   provider     = "mysql"
@@ -7,25 +9,20 @@ datasource db {
   relationMode = "prisma"
 }
 
-generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["jsonProtocol"]
-}
-
 model Weapon {
   name        String @id
   weaponClass String @map("weapon_class") @db.VarChar(255)
-  skins       Skin[]
   baseImage   String @map("base_image") @db.VarChar(255)
+  skins       Skin[]
 }
 
 model Container {
   name            String      @id
-  skins           Skin[]      @relation("ContainerSkin")
   releaseDate     String      @map("release_date") @db.VarChar(255)
   image           String      @db.VarChar(255)
   containerSeries String      @map("container_series") @db.VarChar(255)
   collectionName  String?     @map("collection_name") @db.VarChar(255)
+  skins           Skin[]      @relation("ContainerSkin")
   collection      Collection? @relation(fields: [collectionName], references: [name])
 
   @@index([collectionName])
@@ -34,15 +31,15 @@ model Container {
 model Skin {
   name              String      @id
   weaponName        String      @map("weapon_name") @db.VarChar(255)
-  weapon            Weapon      @relation(fields: [weaponName], references: [name])
   baseImage         String      @map("base_image") @db.VarChar(355)
   rarity            String      @db.VarChar(255)
-  stattrakAvailable Boolean     @map("stattrak_available")
-  souvenirAvailable Boolean     @map("souvenir_available")
+  releaseDate       String      @map("release_date") @db.VarChar(255)
   collectionName    String      @map("collection_name") @db.VarChar(255)
+  souvenirAvailable Boolean     @map("souvenir_available")
+  stattrakAvailable Boolean     @map("stattrak_available")
+  weapon            Weapon      @relation(fields: [weaponName], references: [name])
   collection        Collection  @relation(fields: [collectionName], references: [name])
   containers        Container[] @relation("ContainerSkin")
-  releaseDate       String      @map("release_date") @db.VarChar(255)
 
   @@index([weaponName])
   @@index([collectionName])
@@ -51,18 +48,23 @@ model Skin {
 model Variant {
   id       String @id @default(cuid())
   name     String @db.VarChar(255)
-  // skin     Skin   @relation(fields: [skinName], references: [name])
-  skinName String @map("skin_name") @db.VarChar(255)
   image    String @db.VarChar(255)
-
-  // @@index([skinName])
+  skinName String @map("skin_name") @db.VarChar(255)
 }
 
 model Collection {
   name        String      @id
-  skins       Skin[]
-  releaseDate String      @map("release_date") @db.VarChar(255)
   image       String      @db.VarChar(255)
+  releaseDate String      @map("release_date") @db.VarChar(255)
+  skins       Skin[]
   containers  Container[]
 }
 
+model ContainerSkin {
+  A String
+  B String
+
+  @@unique([A, B], map: "_ContainerSkin_AB_unique")
+  @@index([B], map: "_ContainerSkin_B_index")
+  @@map("_ContainerSkin")
+}
