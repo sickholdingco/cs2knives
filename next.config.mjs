@@ -7,7 +7,7 @@ const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
   images: {
-    domains: ["media.steampowered.com"],
+    domains: ["media.steampowered.com", "community.akamai.steamstatic.com"],
   },
   webpack: (config) => {
     config.infrastructureLogging = {

@@ -118,6 +118,7 @@ export async function generateStaticParams() {
 }
 
 export default async function WeaponPage({ params }: { params: any }) {
+  console.log({ params })
   const res = await fetch(
     `http://localhost:3000/api/weapons?name=${params.name}`,
     {

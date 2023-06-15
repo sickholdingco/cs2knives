@@ -30,6 +30,7 @@ export default async function AKSkin({ params }: { params: { id: string } }) {
             collection={item.name}
             rarity="Covert"
             key={item.name}
+            skinImage={""}
           />
         )
       })}
