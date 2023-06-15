@@ -14,6 +14,7 @@ interface SkinCardProps {
   name: string
   rarity: string
   collection: string
+  skinImage: string
 }
 
 const getRarityColor = (rarity: string) => {
@@ -37,7 +38,12 @@ const getRarityColor = (rarity: string) => {
   }
 }
 
-export default function SkinCard({ name, rarity, collection }: SkinCardProps) {
+export default function SkinCard({
+  name,
+  rarity,
+  collection,
+  skinImage,
+}: SkinCardProps) {
   return (
     <Card className="w-[300px]">
       <CardHeader className="gap-4">
@@ -52,7 +58,12 @@ export default function SkinCard({ name, rarity, collection }: SkinCardProps) {
         </div>
       </CardHeader>
       <CardContent className="gap-3">
-        <Image src={weapon} alt="test-weapon-card" width={200} height={200} />
+        <Image
+          src={skinImage ?? weapon}
+          alt="test-weapon-card"
+          width={200}
+          height={200}
+        />
         <div className="flex flex-col items-center gap-4 font-inter">
           {/*@ts-ignore*/}
           <PriceRange />

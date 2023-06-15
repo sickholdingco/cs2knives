@@ -1,5 +1,7 @@
 import Image from "next/image"
+import { connect } from "@planetscale/database"
 
+import SkinCard from "../../../../components/skin-card/skin-card"
 import {
   Card,
   CardContent,
@@ -60,52 +62,90 @@ type SkinListing = {
   sale_price_text: string
 }
 
+const weapons = [
+  "AK-47",
+  "AUG",
+  "AWP",
+  "CZ75-Auto",
+  "Desert Eagle",
+  "Dual Berettas",
+  "FAMAS",
+  "Five-SeveN",
+  "G3SG1",
+  "Galil AR",
+  "Glock-18",
+  "M249",
+  "M4A1-S",
+  "M4A4",
+  "MAC-10",
+  "MAG-7",
+  "MP5-SD",
+  "MP7",
+  "MP9",
+  "Negev",
+  "Nova",
+  "P2000",
+  "P250",
+  "P90",
+  "PP-Bizon",
+  "R8 Revolver",
+  "Sawed-Off",
+  "SCAR-20",
+  "SG 553",
+  "SSG 08",
+  "Tec-9",
+  "UMP-45",
+  "USP-S",
+  "XM1014",
+]
+
+// TODO get this from prisma
+type Skin = {
+  name: string
+  weapon_name: string
+  base_image: string
+  rarity: string
+  release_date: string
+  collection_name: string
+  souvenir_available: number
+  stattrak_available: number
+}
+
+export async function generateStaticParams() {
+  return weapons.map((weapon) => ({
+    name: weapon,
+  }))
+}
+
 export default async function WeaponPage({ params }: { params: any }) {
-  console.log(params)
-  const skin = params.id === "test" ? "Redline" : "Head Shot"
-  console.log(skin)
-  const url = getSpecificSkinListings(skin, "awp")
-  console.log(url)
+  const res = await fetch(
+    `http://localhost:3000/api/weapons?name=${params.name}`,
+    {
+      next: {
+        revalidate: 30,
+      },
+    }
+  )
 
-  // const response = await fetch(url, {
-  //   next: { revalidate: 60 },
-  // })
+  const results = await res.json()
 
-  // console.log(response)
-
-  // const data: SkinListing[] = await response.json()
-  // console.log(JSON.stringify(data, null, 2))
   return (
-    <div className="flex">
-      <Card>
-        <CardHeader className="gap-4">
-          <CardTitle className="text-center font-mono">
-            AWP | Dragon Lore
-          </CardTitle>
-          <div className="rounded-lg bg-covert px-3 py-2 text-center font-inter text-sm">
-            Covert
-          </div>
-        </CardHeader>
-        <CardContent className="gap-3">
-          <Image src={weapon} alt="test-weapon-card" width={200} height={200} />
-          <div className="flex flex-col items-center gap-4 font-inter">
-            <p className="font-inter">$1562 - $1812</p>
-            <p className="font-inter text-accent">Anubis Case</p>
-          </div>
-        </CardContent>
-      </Card>
+    <div className="flex w-full flex-wrap justify-center gap-8">
+      {results.map((item: any) => {
+        return (
+          <SkinCard
+            name={item.name}
+            collection={item.collection_name}
+            rarity={item.rarity}
+            key={item.name}
+            skinImage={item.base_image}
+          />
+        )
+      })}
     </div>
   )
 }
 
-function getSpecificSkinListings(
-  skinName: string,
-  weapon: string,
-  start: number = 0
-) {
-  const url = encodeURI(
-    `http://steamcommunity.com/market/search/render/?query=search?q=${skinName}&category_730_Weapon[]=tag_weapon_ak47&appid=730&start=0&count=100&norender=1`
-  )
-
-  return url
-}
+export const dynamicParams = false
+// export const revalidate = 30
+// export const runtime = "edge"
