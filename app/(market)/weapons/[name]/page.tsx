@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { connect } from "@planetscale/database"
 
 import SkinCard from "../../../../components/skin-card/skin-card"
@@ -123,24 +124,32 @@ export default async function WeaponPage({ params }: { params: any }) {
     `http://localhost:3000/api/weapons?name=${params.name}`,
     {
       next: {
-        revalidate: 30,
+        revalidate: 600,
       },
     }
   )
 
   const results = await res.json()
 
+  console.log({ results })
+
   return (
     <div className="flex w-full flex-wrap justify-center gap-8">
       {results.map((item: any) => {
+        const split = item.name.split(" | ")
+
+        const skinName = split[1]
+
         return (
-          <SkinCard
-            name={item.name}
-            collection={item.collection_name}
-            rarity={item.rarity}
-            key={item.name}
-            skinImage={item.base_image}
-          />
+          <Link href={`/skin/${params.name}/${skinName}`}>
+            <SkinCard
+              name={item.name}
+              collection={item.collection_name}
+              rarity={item.rarity}
+              key={item.name}
+              skinImage={item.base_image}
+            />
+          </Link>
         )
       })}
     </div>
