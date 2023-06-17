@@ -30,7 +30,6 @@ const getWeaponSkins = async (weapon: string) => {
 }
 
 export async function GET(req: NextRequest, res: Response) {
-  console.log(req.nextUrl.searchParams.get("name"))
   try {
     const weapon = req.nextUrl.searchParams.get("name")
 

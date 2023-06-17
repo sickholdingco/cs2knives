@@ -119,7 +119,6 @@ export async function generateStaticParams() {
 }
 
 export default async function WeaponPage({ params }: { params: any }) {
-  console.log({ params })
   const res = await fetch(
     `http://localhost:3000/api/weapons?name=${params.name}`,
     {
@@ -130,8 +129,6 @@ export default async function WeaponPage({ params }: { params: any }) {
   )
 
   const results = await res.json()
-
-  console.log({ results })
 
   return (
     <div className="flex w-full flex-wrap justify-center gap-8">

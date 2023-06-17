@@ -1,4 +1,5 @@
 import { MarketNav } from "../../components/market-nav"
+import Breadcrumbs from "../../components/ui/breadcrumbs"
 import { navConfig } from "../../config/nav"
 
 export default function MarketLayout({
@@ -13,7 +14,17 @@ export default function MarketLayout({
           <MarketNav items={navConfig.marketNav} />
         </div>
       </header>
-      <main className="mx-8 my-2 flex-1">{children}</main>
+      <main className="mx-8 my-2 flex-1">
+        {
+          <>
+            <div className="my-4">
+              <Breadcrumbs />
+            </div>
+
+            {children}
+          </>
+        }
+      </main>
     </div>
   )
 }

@@ -21,7 +21,6 @@ interface MainNavProps {
 
 export function MarketNav({ items, children }: MainNavProps) {
   const segment = useSelectedLayoutSegment()
-  console.log(segment)
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
 
   return (

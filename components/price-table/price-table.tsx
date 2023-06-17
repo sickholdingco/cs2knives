@@ -68,7 +68,6 @@ const minutesAgo = (date: Date) => {
 }
 
 export async function PriceTable({ skinName, weapon }: PriceTableProps) {
-  console.log({ skinName, weapon })
   const res = await getSkinPrice({ skinName, weapon })
 
   const results: SkinListing[] = res.results ?? []
