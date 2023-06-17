@@ -1,6 +1,5 @@
 import { NextRequest } from "next/server"
 import { connect } from "@planetscale/database"
-import { quartersInYear } from "date-fns"
 
 const getWeaponSkins = async (weapon: string) => {
   const config = {
