@@ -13,6 +13,7 @@ model Weapon {
   name        String @id
   weaponClass String @map("weapon_class") @db.VarChar(255)
   baseImage   String @map("base_image") @db.VarChar(255)
+  skinCount   Int    @default(0) @map("skin_count")
   skins       Skin[]
 }
 
