@@ -12,7 +12,8 @@ const Breadcrumbs = () => {
   if (pathArray.length === 1) return null
 
   const correctPathArray = pathArray.map((path, index) => {
-    if (path === "skin") {
+    const decodedPath = decodeURIComponent(path)
+    if (decodedPath === "skin") {
       return {
         path: "/weapons",
         name: "weapons",
@@ -21,21 +22,21 @@ const Breadcrumbs = () => {
 
     if (index === 1 && pathArray.length === 3) {
       return {
-        path: `/weapons/${path}`,
-        name: path,
+        path: `/weapons/${decodedPath}`,
+        name: decodedPath,
       }
     }
 
     if (index === 2 && pathArray.length === 3) {
       return {
         path: "",
-        name: path,
+        name: decodedPath,
       }
     }
 
     return {
-      path: `/${path}`,
-      name: path,
+      path: `/${decodedPath}`,
+      name: decodedPath,
     }
   })
 

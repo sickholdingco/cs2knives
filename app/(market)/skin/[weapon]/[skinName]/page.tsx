@@ -7,8 +7,10 @@ function getSpecificSkinListings(
   weapon: string,
   start: number = 0
 ) {
+  const weaponQueryParam = decodeURIComponent(weapon)
+  const skinNameQueryParam = decodeURIComponent(skinName)
   const url = encodeURI(
-    `http://steamcommunity.com/market/search/render/?query=search?q=${weapon} | ${skinName}&category_730_ItemSet%5B%5D=any&category_730_ProPlayer%5B%5D=any&category_730_StickerCapsule%5B%5D=any&category_730_TournamentTeam%5B%5D=any&category_730_Weapon%5B%5D=tag_weapon_${weapon}&appid=730&start=${start}&count=100&norender=1`
+    `http://steamcommunity.com/market/search/render/?query=search?q=${weaponQueryParam} | ${skinNameQueryParam}&category_730_ItemSet%5B%5D=any&category_730_ProPlayer%5B%5D=any&category_730_StickerCapsule%5B%5D=any&category_730_TournamentTeam%5B%5D=any&category_730_Weapon%5B%5D=tag_weapon_${weaponQueryParam}&appid=730&start=${start}&count=100&norender=1`
   )
 
   return url
