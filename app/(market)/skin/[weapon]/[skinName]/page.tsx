@@ -1,24 +1,42 @@
 import { PriceTable } from "../../../../../components/price-table/price-table"
 
-export async function generateStaticParams() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/skin`)
+export const revalidate = 60
 
-  const skins = await res.json()
+function getSpecificSkinListings(
+  skinName: string,
+  weapon: string,
+  start: number = 0
+) {
+  const url = encodeURI(
+    `http://steamcommunity.com/market/search/render/?query=search?q=${weapon} | ${skinName}&category_730_ItemSet%5B%5D=any&category_730_ProPlayer%5B%5D=any&category_730_StickerCapsule%5B%5D=any&category_730_TournamentTeam%5B%5D=any&category_730_Weapon%5B%5D=tag_weapon_${weapon}&appid=730&start=${start}&count=100&norender=1`
+  )
 
-  // @ts-ignore
-  return skins.map((skin) => {
-    const split = skin.name.split(" | ")
-
-    return {
-      weapon: split[0],
-      skinName: split[1],
-    }
-  })
+  return url
 }
 
-// todo: look into fallback
+async function getSkinPrice({
+  weapon,
+  skinName,
+}: {
+  weapon: string
+  skinName: string
+}) {
+  try {
+    const url = getSpecificSkinListings(skinName, weapon)
 
-export default async function Post({
+    const res = await fetch(url)
+
+    const priceData = await res.json()
+
+    return priceData
+  } catch (error) {
+    return {
+      results: [],
+    }
+  }
+}
+
+export default async function WeaponSkinPage({
   params,
 }: {
   params: {
@@ -26,12 +44,17 @@ export default async function Post({
     skinName: string
   }
 }) {
+  const priceData = await getSkinPrice({
+    skinName: params.skinName,
+    weapon: params.weapon,
+  })
+
   return (
     <>
       {/* @ts-expect-error */}
-      <PriceTable skinName={params.skinName} weapon={params.weapon} />
+      <PriceTable results={priceData.results} />
     </>
   )
 }
 
-export const dynamicParams = false
+export const dynamicParams = true

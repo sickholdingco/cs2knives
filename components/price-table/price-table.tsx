@@ -34,30 +34,29 @@ type SkinListing = {
 }
 
 type PriceTableProps = {
-  weapon: string
-  skinName: string
+  results: SkinListing[]
 }
 
-async function getSkinPrice({
-  weapon,
-  skinName,
-}: {
-  weapon: string
-  skinName: string
-}) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}/api/skin-prices?weapon=${weapon}&skinName=${skinName}`,
-    {
-      next: {
-        revalidate: 60,
-      },
-    }
-  )
+// async function getSkinPrice({
+//   weapon,
+//   skinName,
+// }: {
+//   weapon: string
+//   skinName: string
+// }) {
+//   const res = await fetch(
+//     `${process.env.NEXT_PUBLIC_APP_URL}/api/skin-prices?weapon=${weapon}&skinName=${skinName}`,
+//     {
+//       next: {
+//         revalidate: 60,
+//       },
+//     }
+//   )
 
-  const priceData = await res.json()
+//   const priceData = await res.json()
 
-  return priceData
-}
+//   return priceData
+// }
 
 const minutesAgo = (date: Date) => {
   const now = new Date()
@@ -69,11 +68,8 @@ const minutesAgo = (date: Date) => {
   // return seconds
 }
 
-export async function PriceTable({ skinName, weapon }: PriceTableProps) {
-  const res = await getSkinPrice({ skinName, weapon })
-
-  const results: SkinListing[] = res.results ?? []
-  const lastFetched = minutesAgo(new Date(res?.lastUpdated))
+export async function PriceTable({ results }: PriceTableProps) {
+  const lastFetched = 0
 
   return (
     <div>

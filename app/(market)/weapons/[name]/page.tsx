@@ -1,6 +1,9 @@
 import Link from "next/link"
+import { connect } from "@planetscale/database"
 
 import SkinCard from "../../../../components/skin-card/skin-card"
+
+export const revalidate = 30
 
 const weapons = [
   "AK-47",
@@ -51,6 +54,34 @@ type Skin = {
   stattrak_available: number
 }
 
+const getWeaponSkins = async (weapon: string) => {
+  const config = {
+    host: process.env.DATABASE_HOST,
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+  }
+
+  const conn = connect(config)
+
+  const results = await conn.execute(
+    `SELECT * FROM Skin WHERE weapon_name = ?
+    ORDER BY 
+    CASE
+      WHEN rarity = 'Consumer Grade' THEN 1
+      WHEN rarity = 'Industrial' THEN 2
+      WHEN rarity = 'Mil-spec' THEN 3
+      WHEN rarity = 'Restricted' THEN 4
+      WHEN rarity = 'Classified' THEN 5
+      WHEN rarity = 'Covert' THEN 6
+      WHEN rarity = 'Contraband' THEN 7
+      ELSE 8
+    END`,
+    [weapon]
+  )
+
+  return results
+}
+
 export async function generateStaticParams() {
   return weapons.map((weapon) => ({
     name: weapon,
@@ -58,16 +89,9 @@ export async function generateStaticParams() {
 }
 
 export default async function WeaponPage({ params }: { params: any }) {
-  const res = await fetch(
-    `http://localhost:3000/api/weapons?name=${params.name}`,
-    {
-      next: {
-        revalidate: 600,
-      },
-    }
-  )
+  const skins = await getWeaponSkins(params.name)
 
-  const results = await res.json()
+  const results = skins.rows
 
   return (
     <div className="flex w-full flex-wrap justify-center gap-8">
@@ -91,7 +115,3 @@ export default async function WeaponPage({ params }: { params: any }) {
     </div>
   )
 }
-
-export const dynamicParams = false
-// export const revalidate = 30
-// export const runtime = "edge"
