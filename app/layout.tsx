@@ -1,4 +1,4 @@
-import { Inter as FontSans } from "next/font/google"
+import { Inter, Roboto_Flex, Roboto_Mono } from "next/font/google"
 import localFont from "next/font/local"
 
 import "@/styles/globals.css"
@@ -8,9 +8,19 @@ import { Toaster } from "@/components/ui/toaster"
 import { Analytics } from "@/components/analytics"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 
-const fontSans = FontSans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-inter",
+})
+
+const mono = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+})
+
+const flex = Roboto_Flex({
+  subsets: ["latin"],
+  variable: "--font-flex",
 })
 
 // Font files can be colocated inside of `pages`
@@ -73,8 +83,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
-          fontHeading.variable
+          inter.variable,
+          fontHeading.variable,
+          mono.variable,
+          flex.variable
         )}
       >
         {children}

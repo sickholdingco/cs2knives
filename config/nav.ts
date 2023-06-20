@@ -7,4 +7,22 @@ export const navConfig: NavConfig = {
       href: "/blog",
     },
   ],
+  marketNav: [
+    {
+      title: "Weapons",
+      href: "/weapons",
+    },
+    {
+      title: "Knives",
+      href: "/knives",
+    },
+    {
+      title: "Cases",
+      href: "/cases",
+    },
+    {
+      title: "Collections",
+      href: "/collections",
+    },
+  ],
 }

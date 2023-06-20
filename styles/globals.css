@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 224 71% 4%;
+    --background: 0 0% 25%;
     --foreground: 213 31% 91%;
 
     --muted: 223 47% 11%;
@@ -16,10 +16,11 @@
     --popover: 224 71% 4%;
     --popover-foreground: 215 20.2% 65.1%;
 
-    --border: 216 34% 17%;
+    --border: 0 0% 45%;
     --input: 216 34% 17%;
 
-    --card: 224 71% 4%;
+    --card: 0 0% 12%;
+
     --card-foreground: 213 31% 91%;
 
     --primary: 210 40% 98%;
@@ -34,6 +35,15 @@
     --ring: 216 34% 17%;
 
     --radius: 0.5rem;
+
+    --covert: 0 80% 61%;
+    --classified: 294 79% 54%;
+    --restricted: 261 100% 64%;
+    --mil-spec: 230 100% 65%;
+    --industrial: 212 62% 61%;
+    --consumer-grade: 212 35% 77%;
+
+    --accent: 54 95% 63%;
   }
 }
 
