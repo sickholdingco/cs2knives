@@ -62,7 +62,7 @@ const getWeaponSkins = async (weapon: string) => {
   }
 
   const conn = connect(config)
-
+  const decodedString = decodeURIComponent(weapon)
   const results = await conn.execute(
     `SELECT * FROM Skin WHERE weapon_name = ?
     ORDER BY 
@@ -76,7 +76,7 @@ const getWeaponSkins = async (weapon: string) => {
       WHEN rarity = 'Contraband' THEN 7
       ELSE 8
     END`,
-    [weapon]
+    [decodedString]
   )
 
   return results
