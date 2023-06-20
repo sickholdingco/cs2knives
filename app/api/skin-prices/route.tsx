@@ -25,10 +25,14 @@ export async function GET(req: NextRequest, res: Response) {
 
     const response = await fetch(url)
 
+    if (response.status === 429) {
+      throw new Error("Rate limited")
+    }
+
     const data = await response.json()
 
     const dataWithDate = {
-      ...data,
+      ...(data ?? {}),
       lastUpdated: new Date(),
     }
 
@@ -36,7 +40,7 @@ export async function GET(req: NextRequest, res: Response) {
       status: 200,
     })
   } catch (error) {
-    return new Response(`${error} failed to get prices`, {
+    return new Response(`failed to get prices`, {
       status: 500,
     })
   }

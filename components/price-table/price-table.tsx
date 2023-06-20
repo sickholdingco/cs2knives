@@ -49,7 +49,7 @@ async function getSkinPrice({
     `${process.env.NEXT_PUBLIC_APP_URL}/api/skin-prices?weapon=${weapon}&skinName=${skinName}`,
     {
       next: {
-        revalidate: 600,
+        revalidate: 60,
       },
     }
   )
@@ -63,8 +63,10 @@ const minutesAgo = (date: Date) => {
   const now = new Date()
   const diff = now.getTime() - date.getTime()
   const minutes = Math.floor(diff / 1000 / 60)
+  // const seconds = Math.floor(diff / 1000)
 
   return minutes
+  // return seconds
 }
 
 export async function PriceTable({ skinName, weapon }: PriceTableProps) {

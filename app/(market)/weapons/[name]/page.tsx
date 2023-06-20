@@ -1,67 +1,6 @@
-import Image from "next/image"
 import Link from "next/link"
-import { connect } from "@planetscale/database"
 
 import SkinCard from "../../../../components/skin-card/skin-card"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../../../components/ui/card"
-import weapon from "/public/images/weapon.png"
-
-const skinListing = {
-  name: "AK-47 | Redline (Minimal Wear)",
-  hash_name: "AK-47 | Redline (Minimal Wear)",
-  sell_listings: 97,
-  sell_price: 11208,
-  sell_price_text: "$112.08",
-  app_icon:
-    "https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/730/69f7ebe2735c366c65c0b33dae00e12dc40edbe4.jpg",
-  app_name: "Counter-Strike: Global Offensive",
-  asset_description: {
-    appid: 730,
-    classid: "5356464208",
-    instanceid: "480085569",
-    background_color: "",
-    icon_url:
-      "-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpKKqPv9NLPF2G1UsZFw373Cp96kigbgrUBuY22nLIWUcgRvN17Y8lnrlbrm157quJ3XiSw0p7BLliM",
-    tradable: 1,
-    name: "AK-47 | Redline (Minimal Wear)",
-    name_color: "D2D2D2",
-    type: "Classified Rifle",
-    market_name: "AK-47 | Redline (Minimal Wear)",
-    market_hash_name: "AK-47 | Redline (Minimal Wear)",
-    commodity: 0,
-  },
-  sale_price_text: "$107.21",
-}
-
-type SkinListing = {
-  name: string
-  hash_name: string
-  sell_listings: number
-  sell_price: number
-  sell_price_text: string
-  app_icon: string
-  app_name: string
-  asset_description: {
-    appid: number
-    classid: string
-    instanceid: string
-    background_color: string
-    icon_url: string
-    tradable: number
-    name: string
-    name_color: string
-    type: string
-    market_name: string
-    market_hash_name: string
-    commodity: number
-  }
-  sale_price_text: string
-}
 
 const weapons = [
   "AK-47",
@@ -138,7 +77,7 @@ export default async function WeaponPage({ params }: { params: any }) {
         const skinName = split[1]
 
         return (
-          <Link href={`/skin/${params.name}/${skinName}`}>
+          <Link prefetch={false} href={`/skin/${params.name}/${skinName}`}>
             <SkinCard
               name={item.name}
               collection={item.collection_name}

@@ -16,6 +16,8 @@ export async function generateStaticParams() {
   })
 }
 
+// todo: look into fallback
+
 export default async function Post({
   params,
 }: {
