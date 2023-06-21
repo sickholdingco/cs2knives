@@ -1,3 +1,5 @@
+import { PrismaClient } from "@prisma/client"
+
 import { PriceTable } from "../../../../../components/price-table/price-table"
 
 export const revalidate = 60
@@ -38,6 +40,46 @@ async function getSkinPrice({
   }
 }
 
+async function updateSkinPriceRange({
+  prices,
+  weapon,
+  skinName,
+}: {
+  prices: []
+  weapon: string
+  skinName: string
+}) {
+  const prisma = new PrismaClient()
+
+  const priceNumbers = prices.map((item: any) => {
+    return parseFloat(item.sell_price_text.replace("$", ""))
+  })
+
+  const priceRange =
+    "$" +
+    Math.min(...priceNumbers).toFixed(2) +
+    " - $" +
+    Math.max(...priceNumbers).toFixed(2)
+
+  const skin = decodeURIComponent(weapon) + " | " + decodeURIComponent(skinName)
+
+  await prisma.skinPriceRange.upsert({
+    where: {
+      name: skin,
+    },
+    create: {
+      name: skin,
+      priceRange: priceRange,
+      updatedAt: new Date(),
+    },
+    update: {
+      name: skin,
+      priceRange: priceRange,
+      updatedAt: new Date(),
+    },
+  })
+}
+
 export default async function WeaponSkinPage({
   params,
 }: {
@@ -49,6 +91,12 @@ export default async function WeaponSkinPage({
   const priceData = await getSkinPrice({
     skinName: params.skinName,
     weapon: params.weapon,
+  })
+
+  await updateSkinPriceRange({
+    prices: priceData.results,
+    weapon: params.weapon,
+    skinName: params.skinName,
   })
 
   return (

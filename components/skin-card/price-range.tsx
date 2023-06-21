@@ -1,3 +1,6 @@
-export default async function PriceRange() {
-  return <p className="font-inter">$1562 - $1812</p>
+interface PriceRangeProps {
+  range: string
+}
+export default async function PriceRange({ range }: PriceRangeProps) {
+  return <p className="font-inter">{range}</p>
 }
