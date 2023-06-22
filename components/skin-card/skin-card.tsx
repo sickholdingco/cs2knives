@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { connect } from "@planetscale/database"
 
 import PriceRange from "../../components/skin-card/price-range"
 import {
@@ -38,12 +39,30 @@ const getRarityColor = (rarity: string) => {
   }
 }
 
+async function getSkinPrice(name: string) {
+  const config = {
+    host: process.env.DATABASE_HOST,
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+  }
+
+  const conn = connect(config)
+  const price = await conn.execute(
+    `SELECT * FROM SkinPriceRange WHERE name = ?`,
+    [name]
+  )
+  const rows = price.rows as any[]
+  const priceRange = rows.length > 0 ? rows[0].price_range : "$0.00 - $0.00"
+  return priceRange
+}
+
 export default function SkinCard({
   name,
   rarity,
   collection,
   skinImage,
 }: SkinCardProps) {
+  const range = getSkinPrice(name)
   return (
     <Card className="w-[300px]">
       <CardHeader className="gap-4">
@@ -66,7 +85,7 @@ export default function SkinCard({
         />
         <div className="flex flex-col items-center gap-4 font-inter">
           {/*@ts-ignore*/}
-          <PriceRange />
+          <PriceRange range={range} />
           <p className="text-center font-inter text-accent">{collection}</p>
         </div>
       </CardContent>

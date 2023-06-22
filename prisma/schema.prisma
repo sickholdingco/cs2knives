@@ -41,7 +41,9 @@ model Skin {
   weapon            Weapon      @relation(fields: [weaponName], references: [name])
   collection        Collection  @relation(fields: [collectionName], references: [name])
   containers        Container[] @relation("ContainerSkin")
+  skinPriceRange    SkinPriceRange? @relation(fields: [name], references: [name])
 
+  @@index([name])
   @@index([weaponName])
   @@index([collectionName])
 }
@@ -59,6 +61,13 @@ model Collection {
   releaseDate String      @map("release_date") @db.VarChar(255)
   skins       Skin[]
   containers  Container[]
+}
+
+model SkinPriceRange {
+  name       String      @id
+  priceRange String      @map("price_range") @db.VarChar(255)
+  updatedAt  DateTime    @map("updated_at") @db.DateTime(6)
+  skin       Skin?        
 }
 
 model ContainerSkin {
