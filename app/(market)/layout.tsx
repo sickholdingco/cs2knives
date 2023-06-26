@@ -14,7 +14,7 @@ export default function MarketLayout({
           <MarketNav items={navConfig.marketNav} />
         </div>
       </header>
-      <main className="mx-8 my-2 flex-1">
+      <main className="mx-8 flex-1 py-8">
         {
           <>
             <div className="my-4">

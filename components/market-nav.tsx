@@ -40,7 +40,7 @@ export function MarketNav({ items, children }: MainNavProps) {
                   className={cn(
                     "flex items-center p-3 text-lg font-medium transition-colors hover:opacity-80 sm:text-sm",
                     item.href.startsWith(`/${segment}`)
-                      ? "border-b-4 border-accent text-accent"
+                      ? "border-b-2 border-accent text-accent"
                       : "text-foreground/60",
                     item.disabled && "cursor-not-allowed opacity-80"
                   )}
