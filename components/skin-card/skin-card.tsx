@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { connect } from "@planetscale/database"
+import { PrismaClient } from "@prisma/client"
 
 import PriceRange from "../../components/skin-card/price-range"
 import {
@@ -11,6 +11,7 @@ import {
 import { cn } from "../../lib/utils"
 import weapon from "/public/images/weapon.png"
 
+const prisma = new PrismaClient()
 interface SkinCardProps {
   name: string
   rarity: string
@@ -40,19 +41,13 @@ const getRarityColor = (rarity: string) => {
 }
 
 async function getSkinPrice(name: string) {
-  const config = {
-    host: process.env.DATABASE_HOST,
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-  }
+  const results = await prisma.skinPriceRange.findFirst({
+    where: {
+      name: name,
+    },
+  })
 
-  const conn = connect(config)
-  const price = await conn.execute(
-    `SELECT * FROM SkinPriceRange WHERE name = ?`,
-    [name]
-  )
-  const rows = price.rows as any[]
-  const priceRange = rows.length > 0 ? rows[0].price_range : "$0.00 - $0.00"
+  const priceRange = results ? results.priceRange : "$0.00 - $0.00"
   return priceRange
 }
 

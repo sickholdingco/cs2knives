@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { connect } from "@planetscale/database"
+import { PrismaClient } from "@prisma/client"
 
 import SkinCard from "../../../../components/skin-card/skin-card"
 
@@ -54,31 +54,14 @@ type Skin = {
   stattrak_available: number
 }
 
-const getWeaponSkins = async (weapon: string) => {
-  const config = {
-    host: process.env.DATABASE_HOST,
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-  }
+const prisma = new PrismaClient()
 
-  const conn = connect(config)
-  const decodedString = decodeURIComponent(weapon)
-  const results = await conn.execute(
-    `SELECT * FROM Skin WHERE weapon_name = ?
-    ORDER BY 
-    CASE
-      WHEN rarity = 'Consumer Grade' THEN 1
-      WHEN rarity = 'Industrial' THEN 2
-      WHEN rarity = 'Mil-spec' THEN 3
-      WHEN rarity = 'Restricted' THEN 4
-      WHEN rarity = 'Classified' THEN 5
-      WHEN rarity = 'Covert' THEN 6
-      WHEN rarity = 'Contraband' THEN 7
-      ELSE 8
-    END`,
-    [decodedString]
-  )
-
+const getWeaponSkins = async (weaponName: string) => {
+  const results = await prisma.skin.findMany({
+    where: {
+      weaponName: weaponName,
+    },
+  })
   return results
 }
 
@@ -89,25 +72,22 @@ export async function generateStaticParams() {
 }
 
 export default async function WeaponPage({ params }: { params: any }) {
-  const skins = await getWeaponSkins(params.name)
-
-  const results = skins.rows
+  const results = await getWeaponSkins(params.name)
 
   return (
     <div className="flex w-full flex-wrap justify-center gap-8">
       {results.map((item: any) => {
         const split = item.name.split(" | ")
-
         const skinName = split[1]
 
         return (
           <Link prefetch={false} href={`/skin/${params.name}/${skinName}`}>
             <SkinCard
               name={item.name}
-              collection={item.collection_name}
+              collection={item.collectionName}
               rarity={item.rarity}
               key={item.name}
-              skinImage={item.base_image}
+              skinImage={item.baseImage}
             />
           </Link>
         )
