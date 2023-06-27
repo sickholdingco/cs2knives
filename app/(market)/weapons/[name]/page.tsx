@@ -54,15 +54,21 @@ type Skin = {
   stattrak_available: number
 }
 
-const prisma = new PrismaClient()
-
 const getWeaponSkins = async (weaponName: string) => {
-  const results = await prisma.skin.findMany({
-    where: {
-      weaponName: decodeURIComponent(weaponName),
-    },
-  })
-  return results
+  const prisma = new PrismaClient()
+  try {
+    const results = await prisma.skin.findMany({
+      where: {
+        weaponName: decodeURIComponent(weaponName),
+      },
+    })
+    return results
+  } catch (error) {
+    console.error(error)
+    return []
+  } finally {
+    await prisma.$disconnect()
+  }
 }
 
 export async function generateStaticParams() {

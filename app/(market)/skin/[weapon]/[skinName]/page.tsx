@@ -51,35 +51,46 @@ async function updateSkinPriceRange({
 }) {
   const prisma = new PrismaClient()
 
-  const priceNumbers = prices.map((item: any) => {
-    return parseFloat(item.sell_price_text.replace("$", ""))
-  })
+  try {
+    const priceNumbers = prices.map((item: any) => {
+      return parseFloat(item.sell_price_text.replace("$", ""))
+    })
 
-  const priceRange =
-    priceNumbers.length === 0
-      ? "No Listings"
-      : "$" +
-        Math.min(...priceNumbers).toFixed(2) +
-        " - $" +
-        Math.max(...priceNumbers).toFixed(2)
+    const priceRange =
+      priceNumbers.length === 0
+        ? "No Listings"
+        : "$" +
+          Math.min(...priceNumbers).toFixed(2) +
+          " - $" +
+          Math.max(...priceNumbers).toFixed(2)
 
-  const skin = decodeURIComponent(weapon) + " | " + decodeURIComponent(skinName)
+    const skin =
+      decodeURIComponent(weapon) + " | " + decodeURIComponent(skinName)
 
-  await prisma.skinPriceRange.upsert({
-    where: {
-      name: skin,
-    },
-    create: {
-      name: skin,
-      priceRange: priceRange,
-      updatedAt: new Date(),
-    },
-    update: {
-      name: skin,
-      priceRange: priceRange,
-      updatedAt: new Date(),
-    },
-  })
+    if (skin && prisma) {
+      await prisma.$transaction(async (transaction) => {
+        await transaction.skinPriceRange.upsert({
+          where: {
+            name: skin,
+          },
+          create: {
+            name: skin,
+            priceRange: priceRange,
+            updatedAt: new Date(),
+          },
+          update: {
+            name: skin,
+            priceRange: priceRange,
+            updatedAt: new Date(),
+          },
+        })
+      })
+    }
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await prisma.$disconnect()
+  }
 }
 
 export default async function WeaponSkinPage({
@@ -96,7 +107,7 @@ export default async function WeaponSkinPage({
   })
 
   await updateSkinPriceRange({
-    prices: priceData.results,
+    prices: priceData?.results || [],
     weapon: params.weapon,
     skinName: params.skinName,
   })
@@ -104,7 +115,7 @@ export default async function WeaponSkinPage({
   return (
     <>
       {/* @ts-expect-error */}
-      <PriceTable results={priceData.results} />
+      <PriceTable results={priceData?.results || []} />
     </>
   )
 }

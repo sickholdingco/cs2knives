@@ -64,7 +64,7 @@ model Collection {
 }
 
 model SkinPriceRange {
-  name       String      @id
+  name       String      @id @unique
   priceRange String      @map("price_range") @db.VarChar(255)
   updatedAt  DateTime    @map("updated_at") @db.DateTime(6)
   skin       Skin?        
