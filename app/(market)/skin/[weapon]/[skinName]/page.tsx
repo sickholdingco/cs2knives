@@ -56,10 +56,12 @@ async function updateSkinPriceRange({
   })
 
   const priceRange =
-    "$" +
-    Math.min(...priceNumbers).toFixed(2) +
-    " - $" +
-    Math.max(...priceNumbers).toFixed(2)
+    priceNumbers.length === 0
+      ? "No Listings"
+      : "$" +
+        Math.min(...priceNumbers).toFixed(2) +
+        " - $" +
+        Math.max(...priceNumbers).toFixed(2)
 
   const skin = decodeURIComponent(weapon) + " | " + decodeURIComponent(skinName)
 
