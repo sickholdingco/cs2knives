@@ -59,7 +59,7 @@ const prisma = new PrismaClient()
 const getWeaponSkins = async (weaponName: string) => {
   const results = await prisma.skin.findMany({
     where: {
-      weaponName: weaponName,
+      weaponName: decodeURIComponent(weaponName),
     },
   })
   return results
