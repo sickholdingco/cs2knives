@@ -1,7 +1,7 @@
 import { PriceTable } from "../../../../../components/price-table/price-table"
 import { prisma } from "../../../../../prisma/index"
 
-//export const revalidate = 60
+export const revalidate = 60
 
 function getSpecificSkinListings(
   skinName: string,
@@ -65,7 +65,6 @@ async function updateSkinPriceRange({
       decodeURIComponent(weapon) + " | " + decodeURIComponent(skinName)
 
     if (skin && prisma) {
-      console.log("upserting...")
       await prisma.skinPriceRange.upsert({
         where: {
           name: skin,
@@ -115,4 +114,4 @@ export default async function WeaponSkinPage({
   )
 }
 
-// export const dynamicParams = true
+export const dynamicParams = true
