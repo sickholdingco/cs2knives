@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client"
-
 import { PriceTable } from "../../../../../components/price-table/price-table"
+import { prisma } from "../../../../../prisma/index"
 
-export const revalidate = 60
+//export const revalidate = 60
 
 function getSpecificSkinListings(
   skinName: string,
@@ -49,8 +48,6 @@ async function updateSkinPriceRange({
   weapon: string
   skinName: string
 }) {
-  const prisma = new PrismaClient()
-
   try {
     const priceNumbers = prices.map((item: any) => {
       return parseFloat(item.sell_price_text.replace("$", ""))
@@ -68,22 +65,20 @@ async function updateSkinPriceRange({
       decodeURIComponent(weapon) + " | " + decodeURIComponent(skinName)
 
     if (skin && prisma) {
-      await prisma.$transaction(async (transaction) => {
-        await transaction.skinPriceRange.upsert({
-          where: {
-            name: skin,
-          },
-          create: {
-            name: skin,
-            priceRange: priceRange,
-            updatedAt: new Date(),
-          },
-          update: {
-            name: skin,
-            priceRange: priceRange,
-            updatedAt: new Date(),
-          },
-        })
+      console.log("upserting...")
+      await prisma.skinPriceRange.upsert({
+        where: {
+          name: skin,
+        },
+        create: {
+          name: skin,
+          priceRange: priceRange,
+          updatedAt: new Date(),
+        },
+        update: {
+          priceRange: priceRange,
+          updatedAt: new Date(),
+        },
       })
     }
   } catch (error) {
@@ -120,4 +115,4 @@ export default async function WeaponSkinPage({
   )
 }
 
-export const dynamicParams = true
+// export const dynamicParams = true
