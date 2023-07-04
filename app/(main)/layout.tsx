@@ -1,7 +1,5 @@
-import { navConfig } from "@/config/nav"
-
-import { MarketNav } from "../../components/market-nav"
-import Breadcrumbs from "../../components/ui/breadcrumbs"
+import Breadcrumbs from "@/components/ui/breadcrumbs"
+import { MarketNav } from "@/components/market-nav"
 
 interface MainLayoutProps {
   children: React.ReactNode

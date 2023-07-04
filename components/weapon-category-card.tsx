@@ -1,8 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { Button } from "../ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
+import { Button } from "./ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import weapon from "/public/images/weapon.png"
 
 interface WeaponCategoryCardProps {

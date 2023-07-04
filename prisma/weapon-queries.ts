@@ -39,3 +39,26 @@ export const getSkinsByWeaponName = async (weaponName: string) => {
     await prisma.$disconnect()
   }
 }
+
+export const getAllSkins = async () => {
+  try {
+    const results = await prisma.skin.findMany({
+      take: 50,
+      // select: {
+      //   name: true,
+      //   collectionName: true,
+      //   rarity: true,
+      //   baseImage: true,
+      // },
+      orderBy: {
+        name: "asc",
+      },
+    })
+    return results
+  } catch (error) {
+    console.error(error)
+    return []
+  } finally {
+    await prisma.$disconnect()
+  }
+}

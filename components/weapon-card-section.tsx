@@ -1,6 +1,6 @@
 import React from "react"
 
-import WeaponCategoryCard from "../weapon-categories/weapon-category-card"
+import WeaponCategoryCard from "./weapon-category-card"
 
 interface Weapon {
   name: string

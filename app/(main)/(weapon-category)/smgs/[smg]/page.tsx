@@ -1,7 +1,8 @@
-import HotDealsBanner from "../../../../../components/hot-deals-banner/hot-deals-banner"
-import SkinGrid from "../../../../../components/skin-grid/skin-grid"
-import { smgs } from "../../../../../config/weapons"
-import { getSkinsByWeaponName } from "../../../../../prisma/weapon-queries"
+import { getSkinsByWeaponName } from "@/prisma/weapon-queries"
+
+import { smgs } from "@/config/weapons"
+import HotDealsBanner from "@/components/hot-deals-banner"
+import SkinGrid from "@/components/skin-grid"
 
 export async function generateStaticParams() {
   return smgs.map((weapon) => ({

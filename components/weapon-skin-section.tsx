@@ -3,7 +3,7 @@ import Link from "next/link"
 import type { Skin } from "@prisma/client"
 import { SlidersHorizontal } from "lucide-react"
 
-import SkinCard from "../skin-card/skin-card"
+import SkinCard from "./skin-card"
 
 const WeaponSkinSection = (props: { results: Skin[]; category: string }) => {
   const { results, category } = props

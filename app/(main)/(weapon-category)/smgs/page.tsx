@@ -1,7 +1,8 @@
-import WeaponCardSection from "../../../../components/weapon-card-section/weapon-card-section"
-import WeaponSkinSection from "../../../../components/weapon-skin-section/weapon-skin-section"
-import { smgs } from "../../../../config/weapons"
-import { getSkinsByWeaponClass } from "../../../../prisma/weapon-queries"
+import { getSkinsByWeaponClass } from "@/prisma/weapon-queries"
+
+import { smgs } from "@/config/weapons"
+import WeaponCardSection from "@/components/weapon-card-section"
+import WeaponSkinSection from "@/components/weapon-skin-section"
 
 export default async function WeaponCategoryPage() {
   const results = await getSkinsByWeaponClass("Rifle")

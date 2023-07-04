@@ -1,17 +1,11 @@
 import Image from "next/image"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/prisma/client"
 
-import PriceRange from "../../components/skin-card/price-range"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card"
-import { cn } from "../../lib/utils"
+import { cn } from "../lib/utils"
+import PriceRange from "./price-range"
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import weapon from "/public/images/weapon.png"
 
-const prisma = new PrismaClient()
 interface SkinCardProps {
   name: string
   rarity: string

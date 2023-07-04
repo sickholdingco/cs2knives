@@ -1,7 +1,7 @@
 import Link from "next/link"
 import type { Skin } from "@prisma/client"
 
-import SkinCard from "../skin-card/skin-card"
+import SkinCard from "./skin-card"
 
 export default function SkinGrid(props: { skins: Skin[] }) {
   const { skins } = props

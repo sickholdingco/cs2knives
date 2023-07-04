@@ -1,8 +1,8 @@
 import React from "react"
 import Image from "next/image"
 
-import { Button } from "../ui/button"
-import { Card, CardContent, CardTitle } from "../ui/card"
+import { Button } from "./ui/button"
+import { Card, CardContent, CardTitle } from "./ui/card"
 import weapon from "/public/images/weapon.png"
 
 const HotDealsBanner = () => {
