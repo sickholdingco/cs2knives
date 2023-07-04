@@ -7,7 +7,7 @@ const NavPopover = () => {
         <div className="flex flex-col gap-5 font-flex">
           <h3 className="text-center text-2xl font-semibold">Pistols</h3>
         </div>
-        <div className="grid grid-cols-2 gap-x-5 gap-y-3 text-center">
+        <div className="grid grid-flow-col grid-cols-2 grid-rows-5 gap-x-5 gap-y-3 text-center">
           {pistols.map((pistol) => (
             <div key={pistol.name}>
               <p className="text-2xl">{pistol.name}</p>
@@ -20,7 +20,7 @@ const NavPopover = () => {
         <div className="flex flex-col gap-5 font-flex">
           <h3 className="text-center text-2xl font-semibold">Heavy</h3>
         </div>
-        <div className="grid grid-cols-2 gap-x-5 gap-y-3 text-center">
+        <div className="grid grid-flow-col grid-cols-2 grid-rows-3 gap-x-5 gap-y-3 text-center">
           {heavy.map((heavy_) => (
             <div key={heavy_.name}>
               <p className="text-2xl">{heavy_.name}</p>
@@ -33,7 +33,7 @@ const NavPopover = () => {
         <div className="flex flex-col gap-5 font-flex">
           <h3 className="text-center text-2xl font-semibold">SMGs</h3>
         </div>
-        <div className="grid grid-cols-2 gap-x-5 gap-y-3 text-center">
+        <div className="grid grid-flow-col grid-cols-2 grid-rows-4 gap-x-5 gap-y-3 text-center">
           {smgs.map((smg) => (
             <div key={smg.name}>
               <p className="text-2xl">{smg.name}</p>
@@ -46,7 +46,7 @@ const NavPopover = () => {
         <div className="flex flex-col gap-5 font-flex">
           <h3 className="text-center text-2xl font-semibold">Rifles</h3>
         </div>
-        <div className="grid grid-cols-2 gap-x-5 gap-y-3 text-center">
+        <div className="grid grid-flow-col grid-cols-2 grid-rows-6 gap-x-5 gap-y-3 text-center">
           {rifles.map((rifle) => (
             <div key={rifle.name}>
               <p className="text-2xl">{rifle.name}</p>
