@@ -63,3 +63,15 @@ export type UserSubscriptionPlan = SubscriptionPlan &
     stripeCurrentPeriodEnd: number
     isPro: boolean
   }
+
+// TODO get this from prisma
+export type Skin = {
+  name: string
+  weapon_name: string
+  base_image: string
+  rarity: string
+  release_date: string
+  collection_name: string
+  souvenir_available: number
+  stattrak_available: number
+}

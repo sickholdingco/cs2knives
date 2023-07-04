@@ -74,12 +74,18 @@ const rifles = [
   },
 ]
 
-const getWeaponSkins = async (weaponName: string) => {
+const getWeaponSkins = async () => {
   const prisma = new PrismaClient()
   try {
     const results = await prisma.skin.findMany({
+      take: 50,
       where: {
-        weaponName: decodeURIComponent(weaponName),
+        weapon: {
+          weaponClass: "Rifle",
+        },
+      },
+      orderBy: {
+        name: "asc",
       },
     })
     return results
@@ -92,7 +98,7 @@ const getWeaponSkins = async (weaponName: string) => {
 }
 
 export default async function WeaponCategoryPage() {
-  const results = await getWeaponSkins("AK-47")
+  const results = await getWeaponSkins()
   return (
     <div>
       <div className="mb-8 grid grid-cols-4 gap-8">
@@ -105,13 +111,13 @@ export default async function WeaponCategoryPage() {
         })}
       </div>
       <div className="mb-4 flex justify-between font-flex text-2xl font-semibold">
-        <h2>All Weapons</h2>
+        <h2>All Rifles</h2>
         <div className="flex items-center gap-1">
           <h2>Filter</h2>
           <SlidersHorizontal className="h-4" />
         </div>
       </div>
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {results.map((item: any) => {
           const split = item.name.split(" | ")
           const skinName = split[1]

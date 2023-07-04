@@ -5,12 +5,19 @@ import { SlidersHorizontal } from "lucide-react"
 import HotDealsBanner from "../../components/hot-deals-banner/hot-deals-banner"
 import SkinCard from "../../components/skin-card/skin-card"
 
-const getWeaponSkins = async (weaponName: string) => {
+const getWeaponSkins = async () => {
   const prisma = new PrismaClient()
   try {
     const results = await prisma.skin.findMany({
-      where: {
-        weaponName: decodeURIComponent(weaponName),
+      take: 50,
+      select: {
+        name: true,
+        collectionName: true,
+        rarity: true,
+        baseImage: true,
+      },
+      orderBy: {
+        name: "asc",
       },
     })
     return results
@@ -23,7 +30,7 @@ const getWeaponSkins = async (weaponName: string) => {
 }
 
 export default async function IndexPage() {
-  const results = await getWeaponSkins("AK-47")
+  const results = await getWeaponSkins()
   return (
     <div>
       <HotDealsBanner />
