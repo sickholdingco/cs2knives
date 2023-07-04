@@ -5,7 +5,7 @@ import { SlidersHorizontal } from "lucide-react"
 import HotDealsBanner from "../../components/hot-deals-banner/hot-deals-banner"
 import SkinCard from "../../components/skin-card/skin-card"
 
-const getWeaponSkins = async () => {
+const getSkinsByWeaponClass = async () => {
   const prisma = new PrismaClient()
   try {
     const results = await prisma.skin.findMany({
@@ -30,7 +30,7 @@ const getWeaponSkins = async () => {
 }
 
 export default async function IndexPage() {
-  const results = await getWeaponSkins()
+  const results = await getSkinsByWeaponClass()
   return (
     <div>
       <HotDealsBanner />

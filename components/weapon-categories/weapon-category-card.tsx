@@ -1,15 +1,20 @@
 import Image from "next/image"
+import Link from "next/link"
 
 import { Button } from "../ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 import weapon from "/public/images/weapon.png"
 
 interface WeaponCategoryCardProps {
-  children?: React.ReactNode
+  children: React.ReactNode
+  href: string
+  image: string
 }
 
 export default function WeaponCategoryCard({
   children,
+  href,
+  image,
 }: WeaponCategoryCardProps) {
   return (
     <Card>
@@ -19,9 +24,9 @@ export default function WeaponCategoryCard({
         </CardTitle>
       </CardHeader>
       <CardContent className="gap-3">
-        <Image src={weapon} alt="category" width={200} height={200} />
-        <Button variant="accent" className="font-flex">
-          View All
+        <Image src={image ?? weapon} alt="category" width={200} height={200} />
+        <Button asChild variant="accent" className="font-flex">
+          <Link href={href}>View All</Link>
         </Button>
       </CardContent>
     </Card>

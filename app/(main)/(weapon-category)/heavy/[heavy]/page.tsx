@@ -1,15 +1,15 @@
 import HotDealsBanner from "../../../../../components/hot-deals-banner/hot-deals-banner"
 import SkinGrid from "../../../../../components/skin-grid/skin-grid"
-import { rifles } from "../../../../../config/weapons"
+import { heavy } from "../../../../../config/weapons"
 import { getSkinsByWeaponName } from "../../../../../prisma/weapon-queries"
 
 export async function generateStaticParams() {
-  return rifles.map((weapon) => ({
+  return heavy.map((weapon) => ({
     name: weapon,
   }))
 }
 
-export default async function RifleSkinPage({ params }: { params: any }) {
+export default async function HeavySkinPage({ params }: { params: any }) {
   const results = await getSkinsByWeaponName("AK-47")
 
   return (
