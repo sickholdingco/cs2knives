@@ -11,7 +11,9 @@ export async function generateStaticParams() {
 }
 
 export default async function HeavySkinPage({ params }: { params: any }) {
-  const results = await getSkinsByWeaponName("AK-47")
+  const weapon = params.heavy.replace(/%20/g, " ")
+
+  const results = await getSkinsByWeaponName(weapon)
 
   return (
     <div>
