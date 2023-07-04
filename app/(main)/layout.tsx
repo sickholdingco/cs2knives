@@ -1,6 +1,8 @@
 import Breadcrumbs from "@/components/ui/breadcrumbs"
 import { MarketNav } from "@/components/market-nav"
 
+import NavPopover from "../../components/nav-popover"
+
 interface MainLayoutProps {
   children: React.ReactNode
 }
@@ -14,6 +16,7 @@ export default async function MainLayout({ children }: MainLayoutProps) {
           {/* <MarketNav items={navConfig.marketNav} /> */}
         </div>
       </header>
+      <NavPopover />
       <main className="flex-1 px-12 py-8 ">
         <div className="my-4">
           <Breadcrumbs />
