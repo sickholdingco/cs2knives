@@ -59,7 +59,7 @@ export default function SkinCard({
 }: SkinCardProps) {
   const range = getSkinPrice(name)
   return (
-    <Card className="min-w-[300px]">
+    <Card>
       <CardHeader className="gap-4">
         <CardTitle className="text-center font-mono">{name}</CardTitle>
         <div

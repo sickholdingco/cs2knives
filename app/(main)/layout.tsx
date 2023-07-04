@@ -1,7 +1,7 @@
 import { navConfig } from "@/config/nav"
-import { MainNav } from "@/components/main-nav"
 
 import { MarketNav } from "../../components/market-nav"
+import Breadcrumbs from "../../components/ui/breadcrumbs"
 
 interface MainLayoutProps {
   children: React.ReactNode
@@ -16,7 +16,12 @@ export default async function MainLayout({ children }: MainLayoutProps) {
           <MarketNav items={navConfig.marketNav} />
         </div>
       </header>
-      <main className="flex-1 px-12 py-8 ">{children}</main>
+      <main className="flex-1 px-12 py-8 ">
+        <div className="my-4">
+          <Breadcrumbs />
+        </div>
+        {children}
+      </main>
     </div>
   )
 }
