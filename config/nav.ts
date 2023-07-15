@@ -24,5 +24,9 @@ export const navConfig: NavConfig = {
       title: "Collections",
       href: "/collections",
     },
+    {
+      title: "Blog",
+      href: "/blog",
+    },
   ],
 }

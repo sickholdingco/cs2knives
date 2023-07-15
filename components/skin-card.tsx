@@ -1,17 +1,11 @@
 import Image from "next/image"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/prisma/client"
 
-import PriceRange from "../../components/skin-card/price-range"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card"
-import { cn } from "../../lib/utils"
+import { cn } from "../lib/utils"
+import PriceRange from "./price-range"
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import weapon from "/public/images/weapon.png"
 
-const prisma = new PrismaClient()
 interface SkinCardProps {
   name: string
   rarity: string
@@ -59,12 +53,12 @@ export default function SkinCard({
 }: SkinCardProps) {
   const range = getSkinPrice(name)
   return (
-    <Card className="w-[300px]">
+    <Card>
       <CardHeader className="gap-4">
         <CardTitle className="text-center font-mono">{name}</CardTitle>
         <div
           className={cn(
-            "rounded-lg bg-covert px-3 py-2 text-center font-inter text-sm",
+            "rounded-lg bg-covert px-3 py-2 text-center font-inter text-base font-medium text-black",
             getRarityColor(rarity)
           )}
         >
@@ -81,7 +75,9 @@ export default function SkinCard({
         <div className="flex flex-col items-center gap-4 font-inter">
           {/*@ts-ignore*/}
           <PriceRange range={range} />
-          <p className="text-center font-inter text-accent">{collection}</p>
+          <p className="text-center font-inter text-base font-semibold text-accent">
+            {collection}
+          </p>
         </div>
       </CardContent>
     </Card>
