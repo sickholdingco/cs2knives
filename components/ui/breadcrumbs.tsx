@@ -51,7 +51,9 @@ const Breadcrumbs = () => {
               <Link href={path.path}>{path.name}</Link>
             )}
 
-            {index !== pathArray.length - 1 && <span className="mx-2">/ </span>}
+            {index !== pathArray.length - 1 && (
+              <span className="mx-2"> &gt; </span>
+            )}
           </div>
         )
       })}

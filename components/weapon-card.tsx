@@ -1,12 +1,6 @@
 import Image from "next/image"
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import weapon from "/public/images/weapon.png"
 
 interface WeaponCardProps {

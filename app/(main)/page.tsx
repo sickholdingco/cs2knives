@@ -1,3 +1,14 @@
+import { getAllSkins } from "@/prisma/weapon-queries"
+
+import HotDealsBanner from "@/components/hot-deals-banner"
+import WeaponSkinSection from "@/components/weapon-skin-section"
+
 export default async function IndexPage() {
-  return <div className="container max-w-4xl py-6 lg:py-10">Coming soon...</div>
+  const results = await getAllSkins()
+  return (
+    <div>
+      <HotDealsBanner />
+      <WeaponSkinSection category="Weapons" results={results} />
+    </div>
+  )
 }

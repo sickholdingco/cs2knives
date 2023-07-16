@@ -27,21 +27,23 @@ export function MarketNav({ items, children }: MainNavProps) {
     <div className="flex w-full justify-between">
       <div className="flex w-full items-center justify-between gap-6 md:gap-10">
         <Link href="/" className="flex items-center space-x-2">
-          <Image src={karambit} alt="karambit" width={32} height={32} />
-          <span className="font-bold sm:inline-block">{siteConfig.name}</span>
+          <Image src={karambit} alt="karambit" width={64} height={64} />
+          <span className="font-inter text-2xl font-medium sm:inline-block">
+            {siteConfig.name}
+          </span>
         </Link>
         <div>
           {items?.length ? (
-            <nav className="hidden gap-6 md:flex">
+            <nav className="hidden gap-12 md:flex">
               {items?.map((item, index) => (
                 <Link
                   key={index}
                   href={item.disabled ? "#" : item.href}
                   className={cn(
-                    "flex items-center p-3 text-lg font-medium transition-colors hover:opacity-80 sm:text-sm",
+                    "flex items-center p-3 font-inter text-2xl font-medium transition-colors hover:opacity-80",
                     item.href.startsWith(`/${segment}`)
                       ? "border-b-2 border-accent text-accent"
-                      : "text-foreground/60",
+                      : "text-card-title",
                     item.disabled && "cursor-not-allowed opacity-80"
                   )}
                 >

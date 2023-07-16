@@ -1,5 +1,6 @@
-import { PriceTable } from "../../../../../components/price-table/price-table"
-import { prisma } from "../../../../../prisma/index"
+import { prisma } from "@/prisma/client"
+
+import { PriceTable } from "@/components/price-table"
 
 export const revalidate = 60
 
