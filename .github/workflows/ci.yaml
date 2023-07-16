@@ -32,6 +32,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Build contentlayer
+        run: pnpm build:contentlayer
+
       - name: Run lint
         run: pnpm lint
         env:
