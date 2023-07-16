@@ -10,7 +10,7 @@ import Link from "next/link"
 
 import { env } from "@/env.mjs"
 import { absoluteUrl, cn, formatDate } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button/utils"
 import { Icons } from "@/components/icons"
 
 interface PostPageProps {
