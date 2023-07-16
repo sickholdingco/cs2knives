@@ -17,18 +17,6 @@ model Weapon {
   skins       Skin[]
 }
 
-model Container {
-  name            String      @id
-  releaseDate     String      @map("release_date") @db.VarChar(255)
-  image           String      @db.VarChar(255)
-  containerSeries String      @map("container_series") @db.VarChar(255)
-  collectionName  String?     @map("collection_name") @db.VarChar(255)
-  skins           Skin[]      @relation("ContainerSkin")
-  collection      Collection? @relation(fields: [collectionName], references: [name])
-
-  @@index([collectionName])
-}
-
 model Skin {
   name              String      @id
   weaponName        String      @map("weapon_name") @db.VarChar(255)
@@ -61,6 +49,27 @@ model Collection {
   releaseDate String      @map("release_date") @db.VarChar(255)
   skins       Skin[]
   containers  Container[]
+}
+
+model Container {
+  name            String      @id
+  releaseDate     String      @map("release_date") @db.VarChar(255)
+  image           String      @db.VarChar(255)
+  containerSeries String      @map("container_series") @db.VarChar(255)
+  collectionName  String?     @map("collection_name") @db.VarChar(255)
+  skins           Skin[]      @relation("ContainerSkin")
+  collection      Collection? @relation(fields: [collectionName], references: [name])
+  gloves          Glove[]     @relation("GloveContainers")
+
+  @@index([collectionName])
+}
+
+model Glove {
+  name       String       @id
+  image      String       @db.VarChar(255)
+  rarity     String       @db.VarChar(255)
+  releaseDate String      @map("date") @db.VarChar(255)
+  containers Container[]  @relation("GloveContainers")
 }
 
 model SkinPriceRange {
