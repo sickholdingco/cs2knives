@@ -31,7 +31,7 @@ const Breadcrumbs = () => {
       },
       {
         path: `/${weapon}/${gunName}`,
-        name: gunName,
+        name: decodeURI(gunName),
       },
       {
         path: "",
@@ -42,7 +42,7 @@ const Breadcrumbs = () => {
     pathArray.forEach((path) => {
       correctPathArray.push({
         path: `/${path}`,
-        name: path,
+        name: decodeURI(path),
       })
     })
   }
