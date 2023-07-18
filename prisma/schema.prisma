@@ -11,6 +11,7 @@ datasource db {
 
 model Weapon {
   name        String @id
+  slug        String @unique @db.VarChar(255)
   weaponClass String @map("weapon_class") @db.VarChar(255)
   baseImage   String @map("base_image") @db.VarChar(255)
   skinCount   Int    @default(0) @map("skin_count")
@@ -19,6 +20,7 @@ model Weapon {
 
 model Skin {
   name              String      @id
+  slug              String      @unique @db.VarChar(255)
   weaponName        String      @map("weapon_name") @db.VarChar(255)
   baseImage         String      @map("base_image") @db.VarChar(355)
   rarity            String      @db.VarChar(255)
@@ -45,6 +47,7 @@ model Variant {
 
 model Collection {
   name        String      @id
+  slug        String      @unique @db.VarChar(255)
   image       String      @db.VarChar(255)
   releaseDate String      @map("release_date") @db.VarChar(255)
   skins       Skin[]
@@ -53,6 +56,7 @@ model Collection {
 
 model Container {
   name            String      @id
+  slug            String      @unique @db.VarChar(255)
   releaseDate     String      @map("release_date") @db.VarChar(255)
   image           String      @db.VarChar(255)
   containerSeries String      @map("container_series") @db.VarChar(255)
@@ -66,6 +70,7 @@ model Container {
 
 model Glove {
   name       String       @id
+  slug       String       @unique @db.VarChar(255)
   image      String       @db.VarChar(255)
   rarity     String       @db.VarChar(255)
   releaseDate String      @map("date") @db.VarChar(255)
