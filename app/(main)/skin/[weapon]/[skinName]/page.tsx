@@ -1,4 +1,5 @@
 import { prisma } from "@/prisma/client"
+import { getSkinBySlugAndWeapon } from "@/prisma/weapon-queries"
 
 import { PriceTable } from "@/components/price-table"
 
@@ -92,19 +93,30 @@ export default async function WeaponSkinPage({
   params,
 }: {
   params: {
-    weapon: string
-    skinName: string
+    weaponSlug: string
+    skinSlug: string
   }
 }) {
+  const skin = await getSkinBySlugAndWeapon(params.skinSlug, params.weaponSlug)
+
+  if (!skin) {
+    return (
+      <>
+        {/* @ts-expect-error */}
+        <PriceTable results={[]} />
+      </>
+    )
+  }
+
   const priceData = await getSkinPrice({
-    skinName: params.skinName,
-    weapon: params.weapon,
+    skinName: skin.name,
+    weapon: skin.weaponName,
   })
 
   await updateSkinPriceRange({
     prices: priceData?.results || [],
-    weapon: params.weapon,
-    skinName: params.skinName,
+    weapon: skin.weaponName,
+    skinName: skin.name,
   })
 
   return (

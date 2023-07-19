@@ -4,6 +4,7 @@ import WeaponCategoryCard from "./weapon-category-card"
 
 interface Weapon {
   name: string
+  slug: string
   baseImage: string
 }
 
@@ -20,7 +21,7 @@ const WeaponCardSection = ({
         return (
           <WeaponCategoryCard
             image={weapon.baseImage}
-            href={`/${linkRoot}/${weapon.name}`}
+            href={`/${linkRoot}/${weapon.slug}`}
             key={weapon.name}
           >
             {weapon.name}

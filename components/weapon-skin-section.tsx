@@ -18,13 +18,13 @@ const WeaponSkinSection = (props: { results: Skin[]; category: string }) => {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {results.map((item: any) => {
-          const split = item.name.split(" | ")
-          const skinName = split[1]
-          const weaponName = split[0]
+        {results.map((item: Skin) => {
+          // TODO: maybe put weapon slug on a skin
+          const weaponSlug = item.weaponName.toLowerCase().replace(" ", "-")
+          const skinSlug = item.slug
 
           return (
-            <Link prefetch={false} href={`/skin/${weaponName}/${skinName}`}>
+            <Link prefetch={false} href={`/skin/${weaponSlug}/${skinSlug}`}>
               <SkinCard
                 name={item.name}
                 collection={item.collectionName}
