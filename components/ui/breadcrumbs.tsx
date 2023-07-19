@@ -6,59 +6,66 @@ import { usePathname } from "next/navigation"
 
 import { GUNS_TO_WEAPONS } from "@/config/weapons"
 
-const Breadcrumbs = () => {
-  const pathname = usePathname()
+interface BreadcrumbsProps {
+  crumbs: {
+    path: string
+    name: string
+  }[]
+}
 
-  const pathArray = pathname.split("/").filter((x) => x)
+const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
+  // const pathname = usePathname()
 
-  if (pathArray.length === 0) return null
+  // const pathArray = pathname.split("/").filter((x) => x)
 
-  const correctPathArray = [
-    {
-      path: "/",
-      name: "home",
-    },
-  ]
+  // if (pathArray.length === 0) return null
 
-  if (pathArray.includes("skin") && pathArray.length === 3) {
-    const gunName = pathArray[1]
-    const weapon = GUNS_TO_WEAPONS[gunName]
+  // const correctPathArray = [
+  //   {
+  //     path: "/",
+  //     name: "home",
+  //   },
+  // ]
 
-    correctPathArray.push(
-      {
-        path: `/${weapon}`,
-        name: weapon,
-      },
-      {
-        path: `/${weapon}/${gunName}`,
-        name: decodeURI(gunName),
-      },
-      {
-        path: "",
-        name: decodeURI(pathArray[2]),
-      }
-    )
-  } else {
-    pathArray.forEach((path) => {
-      correctPathArray.push({
-        path: `/${path}`,
-        name: decodeURI(path),
-      })
-    })
-  }
+  // if (crumbs) {
+  //   const gunName = pathArray[1]
+  //   const weapon = GUNS_TO_WEAPONS[gunName]
+
+  //   correctPathArray.push(
+  //     {
+  //       path: `/${weapon}`,
+  //       name: weapon,
+  //     },
+  //     {
+  //       path: `/${weapon}/${gunName}`,
+  //       name: decodeURI(gunName),
+  //     },
+  //     {
+  //       path: "",
+  //       name: decodeURI(pathArray[2]),
+  //     }
+  //   )
+  // } else {
+  //   pathArray.forEach((path) => {
+  //     correctPathArray.push({
+  //       path: `/${path}`,
+  //       name: decodeURI(path),
+  //     })
+  //   })
+  // }
 
   return (
     <nav className="flex flex-wrap text-sm text-foreground">
-      {correctPathArray.map((path, index) => {
+      {crumbs.map((crumb, index) => {
         return (
           <div key={index} className="flex items-center">
-            {index === correctPathArray.length - 1 ? (
-              <span className="text-accent">{path.name}</span>
+            {index === crumbs.length - 1 ? (
+              <span className="text-accent">{crumb.name}</span>
             ) : (
-              <Link href={path.path}>{path.name}</Link>
+              <Link href={crumb.path}>{crumb.name}</Link>
             )}
 
-            {index !== correctPathArray.length - 1 && (
+            {index !== crumbs.length - 1 && (
               <span className="mx-2"> &gt; </span>
             )}
           </div>

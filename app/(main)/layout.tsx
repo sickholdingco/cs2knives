@@ -16,13 +16,10 @@ export default async function MainLayout({ children }: MainLayoutProps) {
           {/* <MarketNav items={navConfig.marketNav} /> */}
         </div>
       </header>
+
       <NavPopover />
-      <main className="flex-1 px-12 py-8 ">
-        <div className="my-4">
-          <Breadcrumbs />
-        </div>
-        {children}
-      </main>
+
+      <main className="flex-1 px-12 py-8 ">{children}</main>
     </div>
   )
 }

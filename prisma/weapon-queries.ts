@@ -1,4 +1,4 @@
-import { Skin, prisma } from "./client"
+import { Skin, Weapon, prisma } from "./client"
 
 type WeaponClass = "Rifle" | "SMG" | "Pistol" | "Heavy"
 
@@ -45,6 +45,25 @@ export const getSkinBySlug = async (skinSlug: string): Promise<Skin | null> => {
     const results = await prisma.skin.findFirst({
       where: {
         slug: skinSlug,
+      },
+    })
+
+    return results
+  } catch (error) {
+    console.error(error)
+    return null
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+export const getWeaponBySlug = async (
+  weaponsSlug: string
+): Promise<Weapon | null> => {
+  try {
+    const results = await prisma.weapon.findFirst({
+      where: {
+        slug: weaponsSlug,
       },
     })
 
