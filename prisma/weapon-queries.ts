@@ -40,24 +40,10 @@ export const getSkinsByWeaponName = async (weaponName: string) => {
   }
 }
 
-export const getSkinBySlugAndWeapon = async (
-  skinSlug: string,
-  weaponSlug: string
-): Promise<Skin | null> => {
+export const getSkinBySlug = async (skinSlug: string): Promise<Skin | null> => {
   try {
-    const weaponResults = await prisma.weapon.findFirst({
-      where: {
-        slug: weaponSlug,
-      },
-    })
-
-    if (!weaponResults) {
-      return null
-    }
-
     const results = await prisma.skin.findFirst({
       where: {
-        weaponName: weaponResults.name,
         slug: skinSlug,
       },
     })
