@@ -1,5 +1,8 @@
 import { prisma } from "@/prisma/client"
+import { getSkinBySlug } from "@/prisma/weapon-queries"
 
+import { GUNS_TO_WEAPONS } from "@/config/weapons"
+import Breadcrumbs from "@/components/ui/breadcrumbs"
 import { PriceTable } from "@/components/price-table"
 
 export const revalidate = 60
@@ -92,23 +95,59 @@ export default async function WeaponSkinPage({
   params,
 }: {
   params: {
-    weapon: string
-    skinName: string
+    skinSlug: string
   }
 }) {
+  const skin = await getSkinBySlug(params.skinSlug)
+
+  if (!skin) {
+    return (
+      <>
+        {/* @ts-expect-error */}
+        <PriceTable results={[]} />
+      </>
+    )
+  }
+
   const priceData = await getSkinPrice({
-    skinName: params.skinName,
-    weapon: params.weapon,
+    skinName: skin.name,
+    weapon: skin.weaponName,
   })
 
   await updateSkinPriceRange({
     prices: priceData?.results || [],
-    weapon: params.weapon,
-    skinName: params.skinName,
+    weapon: skin.weaponName,
+    skinName: skin.name,
   })
+
+  const weaponClass = GUNS_TO_WEAPONS[skin.weaponName]
+
+  const crumbs = [
+    {
+      path: "/",
+      name: "Home",
+    },
+    {
+      path: `/${weaponClass}`,
+      name: weaponClass[0].toUpperCase() + weaponClass.slice(1),
+    },
+    {
+      path: `/${weaponClass}/${skin.weaponName
+        .toLowerCase()
+        .replace(" ", "-")}`,
+      name: skin.weaponName,
+    },
+    {
+      path: "",
+      name: skin.name,
+    },
+  ]
 
   return (
     <>
+      <div className="my-4">
+        <Breadcrumbs crumbs={crumbs} />
+      </div>
       {/* @ts-expect-error */}
       <PriceTable results={priceData?.results || []} />
     </>
