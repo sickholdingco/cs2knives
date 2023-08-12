@@ -10,8 +10,17 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 import { MobileNav } from "@/components/mobile-nav"
+import NavPopover from "@/components/nav-popover"
 
 import { Input } from "./ui/input"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "./ui/navigation-menu"
 import karambit from "/public/images/karambit.png"
 
 interface MainNavProps {
@@ -35,25 +44,57 @@ export function MarketNav({ items, children }: MainNavProps) {
         <div>
           {items?.length ? (
             <nav className="hidden gap-12 md:flex">
-              {items?.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.disabled ? "#" : item.href}
-                  className={cn(
-                    "flex items-center p-3 font-inter text-2xl font-medium transition-colors hover:opacity-80",
-                    item.href.startsWith(`/${segment}`)
-                      ? "border-b-2 border-accent text-accent"
-                      : "text-card-title",
-                    item.disabled && "cursor-not-allowed opacity-80"
-                  )}
-                >
-                  {item.title}
-                </Link>
-              ))}
+              <NavigationMenu>
+                <NavigationMenuList>
+                  {items?.map((item, index) => {
+                    if (item.title === "Weapons") {
+                      return (
+                        <NavigationMenuItem>
+                          <NavigationMenuTrigger>
+                            <Link
+                              key={index}
+                              href={item.disabled ? "#" : item.href}
+                              className={cn(
+                                "flex items-center p-3 font-inter text-2xl font-medium transition-colors hover:opacity-80",
+                                item.href.startsWith(`/${segment}`)
+                                  ? "border-b-2 border-accent text-accent"
+                                  : "text-card-title",
+                                item.disabled && "cursor-not-allowed opacity-80"
+                              )}
+                            >
+                              {item.title}
+                            </Link>
+                          </NavigationMenuTrigger>
+                          <NavigationMenuContent>
+                            <NavPopover />
+                          </NavigationMenuContent>
+                        </NavigationMenuItem>
+                      )
+                    }
+
+                    return (
+                      <Link
+                        key={index}
+                        href={item.disabled ? "#" : item.href}
+                        className={cn(
+                          "flex items-center p-3 font-inter text-2xl font-medium transition-colors hover:opacity-80",
+                          item.href.startsWith(`/${segment}`)
+                            ? "border-b-2 border-accent text-accent"
+                            : "text-card-title",
+                          item.disabled && "cursor-not-allowed opacity-80"
+                        )}
+                      >
+                        {item.title}
+                      </Link>
+                    )
+                  })}
+                </NavigationMenuList>
+                <NavigationMenuViewport />
+              </NavigationMenu>
             </nav>
           ) : null}
         </div>
-        <Input placeholder="search" />
+        {/* <Input placeholder="search" /> */}
       </div>
 
       <div>
